@@ -1,0 +1,438 @@
+#:import Factory kivy.factory.Factory
+#:import os os
+#:import datasets datasets
+
+
+FloatLayout:
+    id: base
+    pos: self.pos
+    canvas.before:
+        Rectangle:
+            size: base.width, base.height
+            pos: base.pos
+            source: "gui_back2.png"
+    MultiMulti:
+        size: base.width, base.height
+        id: multi_layout
+        AddButton:
+            id: the_adder
+            text: "Add"
+            # background_normal: "button_test2.png"
+            # background_down: "button_test2_down.png"
+            # background_disabled_normal: "button_test2_disabled.png"
+            size_hint: multi_layout.adder_width, multi_layout.adder_height
+            pos_hint: {"x": 0.01, "top": 0.99}
+            on_press: self.extend_selection()
+            on_release: print(multi_layout.parent)
+            on_release: multi_layout.add_dropdown(the_adder, the_deleter, the_seq_getter)
+            on_release: self.disable_self(the_adder) if multi_layout.row_count > 1 and multi_layout.drop_count >= 7 else True
+    SubmitText:
+        id: submit_text
+        height: base.height
+        width: base.width
+    MetaSelection:
+        id: meta
+        root_width: base.width
+        root_height: base.height
+    Button:
+        id: the_loader
+        text: 'Load File'
+        # background_normal: "button_test2.png"
+        # background_down: "button_test2_down.png"
+        size_hint: 0.1, 0.05
+        pos_hint: {"x": 0.01, "y": 0.15}
+        on_release: Factory.MyPopup().open()
+    RunButton:
+        id: the_runner
+        text: "Run"
+        # background_normal: "button_test2.png"
+        # background_down: "button_test2_down.png"
+        size_hint: 0.1, 0.05
+        pos_hint: {"right": 0.99, "y": 0.01}
+        on_press: self.add_linklabel(base)
+        on_release: self.start_protocol()
+    Label:
+        text: "[ref=readme]Help[/ref]"
+        markup: True
+        on_ref_press: os.startfile(os.getcwd()+"\\..\\..\\README.md")
+        size_hint: 0.05, 0.05
+        pos_hint: {"top": 1, "right": 1}
+    OutLabel:
+        id: vis_out
+        markup: True
+        size_hint: self.texture_size[0]/base.width, self.texture_size[1]/base.height
+        pos_hint: {"y": 0.475, "x": 0.01}
+        text: "[ref=reset]Exception Display[/ref]"
+        color: 0.898,0.584,0,1
+        on_ref_press: self.text = "[ref=reset]Exception Display[/ref]"
+    DelDrop:
+        id: the_deleter
+        # background_normal: "button_test2.png"
+        # background_down: "button_test2_down.png"
+        # background_disabled_normal: "button_test2_disabled.png"
+        size_hint: 0.05, 0.05
+        pos_hint: {"x": 0.01, "top": 0.94}
+        on_release: self.del_last_drop(the_adder, the_seq_getter)
+        disabled: True if multi_layout.drop_count == 0 else False
+    # Label:
+    #     text: "[ref=gb_output]Example Outputs[/ref]"
+    #     markup: True
+    #     on_ref_press: os.startfile("{}/{}".format(os.getcwd(), "data/output/example"))
+    #     pos: root.width - self.texture_size[0] - ((self.width-self.texture_size[0])/2), 0.0 * root.height - 0 * self.texture_size[1]
+    ProtocolButton:
+        id: report
+        text: "Overhangs"
+        # background_normal: "button_test2.png"
+        # background_down: "button_test2_down.png"
+        size_hint: 0.1, 0.075
+        pos_hint: {"right": 0.99, "y": 0.3}
+        on_release: self.visualize()
+    FormatButton:
+        text: "?"
+        # background_normal: "button_test2.png"
+        # background_down: "button_test2_down.png"
+        size_hint: 0.03, 0.033
+        pos_hint: {"x": 0.14, "top": 0.05}
+        on_release: self.open_format()
+    GetSeq:
+        id: the_seq_getter
+        # background_normal: "button_test2.png"
+        # background_down: "button_test2_down.png"
+        size_hint: 0.1, 0.05
+        pos_hint: {"x": 0.06, "top": 0.965}
+
+
+<MyPopup>:
+    title: "Load fragments from fasta or seed regions from seed region finder output"
+    FloatLayout:
+        FileChooser:
+            id: fc
+            FileChooserListLayout
+        Button:
+            text: "Load"
+            # background_normal: "button_test2.png"
+            # background_down: "button_test2_down.png"
+            on_release: root.print_cont(fc.selection[0])
+            on_release: root.dismiss()
+            id: ldbtn
+            disabled: True if fc.selection==[] else False
+            pos_hint: {"x": 0.01, "y": 0.01}
+            size_hint: .1, .05
+        Button:
+            text: "Cancel"
+            # background_normal: "button_test2.png"
+            # background_down: "button_test2_down.png"
+            pos_hint: {"right": 0.99, "y": 0.01}
+            size_hint: .1, .05
+            on_release: root.dismiss()
+
+<OhViewPopup>:
+    title: "Check your Overhangs"
+    id: view_popup
+    ScrollView:
+        width: root.width
+        height: root.height
+        do_scroll_x: False
+        do_scroll_y: True
+        FloatLayout:
+            pos_hint: {"center_x": 0.5}
+            size_hint: None, None
+            width: 1 * root.width
+            height: 3 * root.height
+            id: canvas
+            Button:
+                text: "Close"
+                # background_normal: "button_test2.png"
+                # background_down: "button_test2_down.png"
+                pos_hint: {"top": 0.99}
+                size_hint: 0.1, 0.02
+                on_release: root.dismiss()
+            OptimButton:
+                text: "Optimize"
+                # background_normal: "button_test2.png"
+                # background_down: "button_test2_down.png"
+                pos_hint: {"top": 0.99, "x": 0.11}
+                size_hint: 0.1, 0.02
+            FidelitySpinner:
+                id: reaction
+                text: "T4 18h 25C"
+                pos_hint: {"top": 0.99, "x": 0.22}
+                size_hint: 0.12, 0.02
+                values: "T4 01h 25C", "T4 01h 37C", "T4 18h 25C", "T4 18h 37C"
+                on_text: root.update_fids(reaction.text)
+            FancySlider:
+                id: selection_slider
+                min: 0
+                max: 2
+                step: 1
+                value: 1
+                cursor_image: "./slider_img_red.png"
+                pos_hint: {"x": 0.35, "top": 0.99}
+                size_hint: 0.15, 0.02
+            SliderButton:
+                text: "?"
+                # background_normal: "button_test2.png"
+                # background_down: "button_test2_down.png"
+                size_hint: 0.0252, 0.01
+                pos_hint: {"x": 0.51, "top": 0.985}
+                on_release: self.open_format()
+
+
+
+<FormatPopup>
+    title: "Format of single fragment input"
+    size_hint: 0.8, 0.4
+    FloatLayout:
+
+        Label:
+            text: "[color=9fc5e8]Fragment-Name[/color],[color=3d85c6]Fragment-Type[/color],[color=674ea7]Fragment-Sequence[/color],[color=a64d79]Path-To-gb (acceptor plasmid only)[/color]\n\n[color=9fc5e8]plas_new[/color],[color=3d85c6]plasmid[/color],[color=674ea7]ATCGACACTACTTACGATCGATCGATC[/color],[color=a64d79]data/fragments/plas_new.gb[/color]"
+            markup: True
+            pos_hint: {"x": 0, "y": 0}
+
+        Button:
+            text: "Close"
+            # background_normal: "button_test2.png"
+            # background_down: "button_test2_down.png"
+            size_hint: 0.1, 0.12
+            pos_hint: {"y": 0.01, "right": 0.99}
+            on_release: root.dismiss()
+
+
+<SliderPopup>
+    title: "Click constructs to copy overhang sets for optimization based on slider state"
+    size_hint: 0.8, 0.4
+    FloatLayout:
+
+        Label:
+            text: "white - Fidelity optimization of all overhangs\n[color=#e53833]red[/color] - Fix duplicates (red overhangs)\n[color=#feec08]yellow[/color]-[color=#e53833]red[/color] - fix duplicates (red overhangs) and low fidelity overhangs (yellow overhangs)"
+            markup: True
+            pos_hint: {"x": 0, "y": 0}
+
+        Button:
+            text: "Close"
+            # background_normal: "button_test2.png"
+            # background_down: "button_test2_down.png"
+            size_hint: 0.1, 0.12
+            pos_hint: {"y": 0.01, "right": 0.99}
+            on_release: root.dismiss()
+
+
+<MetaSelection>
+    LabelInput:
+        id: out_file
+        row: 1
+        label: "Project Name"
+        default: "default"
+        root_width: root.root_width
+        root_height: root.root_height
+    LabelInput:
+        row: 3
+        label: "Bases for Gap"
+        default: "C"
+        root_width: root.root_width
+        root_height: root.root_height
+    OhDisplay:
+        id: oh_len
+        row: 8
+        default: "4"
+        root_width: root.root_width
+        root_height: root.root_height
+    LabelInput:
+        row: 5
+        label: "PCR Primer Length"
+        default: "20"
+        root_width: root.root_width
+        root_height: root.root_height
+    LabelInput:
+        row: 6
+        label: "Maximum Annealing Length"
+        default: "60"
+        root_width: root.root_width
+        root_height: root.root_height
+    LabelInput:
+        row: 4
+        label: "Melting Temperature"
+        default: "53"
+        root_width: root.root_width
+        root_height: root.root_height
+    ResInput:
+        id: res_enz
+        row: 9
+        label: "Restriction Enzyme"
+        default: "BbsI"
+        root_width: root.root_width
+        root_height: root.root_height
+
+<MultiSelectOption>:
+    size_hint: 0.1 , None
+    height: '48dp'
+    # background_normal: 'button_test2.png'
+    # background_down: 'button_test2_down.png'
+    background_normal: 'button_up.png'
+    background_down: 'button_down.png'
+    border: 1,1,1,1
+    color: 0,0,0,1
+
+<SubmitText>:
+    id: submit_id
+    FloatLayout:
+        height: root.height
+        width: root.width
+        Button:
+            text: "Submit"
+            # background_normal: "button_test2.png"
+            # background_down: "button_test2_down.png"
+            pos_hint: {"x":  0.01, "top": 0.05}
+            size_hint: 0.13, 0.033
+            on_press: submit_id.inputs = fragment_text.text
+            on_release: fragment_text.text=""
+        TextInput:
+            id: fragment_text
+            hint_text: "Insert fragment sequence"
+            pos_hint: {"x":  0.01, "y": 0.05}
+            size_hint: 0.25, 0.08
+
+<LabelInput>
+    Label:
+        id: lab
+        text: root.label
+        height: self.texture_size[1] + 0.05 * root.height
+        width: self.texture_size[0]
+        pos: 0.6 * root.root_width - self.width, root.row * self.height
+        font_size: '18dp'
+    MyTextInput:
+        id: txt
+        text: root.default
+        height: lab.texture_size[1] + 0.05 * root.height
+        font_size: 15
+        multiline: False
+        pos: lab.right, root.row * self.height
+
+<ResInput>
+    Label:
+        id: lab
+        text: root.label
+        height: self.texture_size[1] + 0.05 * root.height
+        width: self.texture_size[0]
+        pos: 0.6 * root.root_width - self.width, root.row * self.height
+        font_size: '18dp'
+    Spinner:
+        id: txt
+        text: root.default
+        values: root.res
+        pos: lab.right, root.row * self.height
+        height: lab.texture_size[1] + 0.05 * root.height
+        on_text: self.parent.parent.meta_dict[self.parent.label] = self.text
+        on_text: root.change_oh_disp()
+
+<OhDisplay>
+    Label:
+        id: lab
+        text: root.label
+        height: self.texture_size[1] + 0.05 * root.height
+        width: self.texture_size[0]
+        pos: 0.6 * root.root_width - self.width, root.row * self.height
+        font_size: '18dp'
+    Label:
+        id: txt
+        text: root.default
+        height: self.texture_size[1] + 0.05 * root.height
+        width: self.texture_size[0]
+        pos: lab.right + 0.02 * lab.right, root.row * self.height
+        font_size: '18dp'
+
+<LinkLabel>
+    id: links
+    Label:
+        text: "[ref=out_dir][b][size=25]Output Directory[/size][/b][/ref]"
+        color: 0.898,0.584,0,1
+        markup: True
+        on_ref_press: os.startfile("{}/{}".format(os.getcwd(), "data/output"))
+        pos: root.width - self.texture_size[0] - ((self.width-self.texture_size[0])/2), 0.35 * root.height - 0 * self.texture_size[1]
+
+<MultiSelectSpinner>
+    id: abc
+    background_normal: "button_up.png"
+    # background_down: "button_test2_down.png"
+    border: 1,1,1,1
+    color: 0,0,0,1
+
+<GetSeq>
+    text: "Get Seq"
+    size_hint: 0.1, 0.05
+    pos_hint: {"right": 0.99, "y": 0.28}
+    on_release: self.open_get_seq()
+
+<GetSeqPopup>
+    title: "Copy single fragment sequence by clicking 'copy'"
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        FloatLayout:
+            pos_hint: {"x": 0, "y": 0}
+            size_hint: None, None
+            height: 2 * root.height
+            width: root.width
+            id: canvas
+            Button:
+                text: "Close"
+                # background_normal: "button_test2.png"
+                # background_down: "button_test2_down.png"
+                pos_hint: {"top": 0.995}
+                size_hint: 0.1, 0.02
+                on_press: root.dismiss()
+
+<RunButton>
+
+<OutLabel>
+    Label
+
+<PrimerSpinner>
+    id: self.my_id
+
+<OhInput>
+    id: self.my_id
+
+<DelDrop>
+    text: "Del"
+
+<MyDropDown>
+    on_dismiss: print("dismissed")
+
+<OhViewLabel>
+    text_size: 0.95 * root.width, root.height
+    size: self.texture_size
+    markup: True
+    on_ref_press: root.cp_ohs()
+
+<VisualizeOhs>
+
+<OhViewPopup>
+
+<ProtocolSpinner>
+
+<OptimizeCheck>
+
+<OptimButton>
+    on_release: self.optim_link()
+
+<ProtocolButton>
+
+<FormatButton>
+
+<SeqLabel>
+    text_size: 0.855 * root.width, root.height
+    size: self.texture_size
+    shorten: True
+
+<CopyButton>
+    on_release: self.copy_seq()
+
+<FancySlider>
+
+<SliderButton>
+
+
+
+
+

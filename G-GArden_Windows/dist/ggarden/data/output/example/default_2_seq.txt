@@ -1,0 +1,12 @@
+prom1 promoter (fwd,rev)
+cGAAGACccACCAtcgatcgactacgtacgact
+cGAAGACccgtcgatgctagctagtcgat
+
+sd1 seed (fwd,rev)
+cGAAGACccCGACcatgctacgctacgactgac
+cGAAGACccTTTAgctagtcagtcgatcgtagc
+
+scaf2 scaffold (fwd,rev)
+cGAAGACcctaaacctgaattacactacg
+cGAAGACccCATCgggtgagtggccaaaatttc
+

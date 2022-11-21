@@ -1,0 +1,25 @@
+Product No.;Primer;Seq
+1;prom1-fwd;cGAAGACccACCAtcgatcgactacgtacgact
+1;prom1-rev;cGAAGACccgtcgatgctagctagtcgat
+1;sd1-fwd;cGAAGACccCGACcatgctacgctacgactgac
+1;sd1-rev;cGAAGACccTTTTgctagtcagtcgatcgtagc
+1;scaf1-fwd;aaaacctgaattacactacgatcgactacgtacgcagagatgaaattttggccactcac
+1;scaf1-rev;CATCgtgagtggccaaaatttcatctctgcgtacgtagtcgatcgtagtgtaattcagg
+2;prom1-fwd;cGAAGACccACCAtcgatcgactacgtacgact
+2;prom1-rev;cGAAGACccgtcgatgctagctagtcgat
+2;sd1-fwd;cGAAGACccCGACcatgctacgctacgactgac
+2;sd1-rev;cGAAGACccTTTAgctagtcagtcgatcgtagc
+2;scaf2-fwd;cGAAGACcctaaacctgaattacactacg
+2;scaf2-rev;cGAAGACccCATCgggtgagtggccaaaatttc
+3;prom2-fwd;cGAAGACccACCActagctacgatcactagcta
+3;prom2-rev;cGAAGACccGTTGgttgatgctagctagtcgat
+3;sd1-fwd;cGAAGACccCAACcatgctacgctacgactgac
+3;sd1-rev;cGAAGACccTTTTgctagtcagtcgatcgtagc
+3;scaf1-fwd;aaaacctgaattacactacgatcgactacgtacgcagagatgaaattttggccactcac
+3;scaf1-rev;CATCgtgagtggccaaaatttcatctctgcgtacgtagtcgatcgtagtgtaattcagg
+4;prom2-fwd;cGAAGACccACCActagctacgatcactagcta
+4;prom2-rev;cGAAGACccGTTGgttgatgctagctagtcgat
+4;sd1-fwd;cGAAGACccCAACcatgctacgctacgactgac
+4;sd1-rev;cGAAGACccTTTAgctagtcagtcgatcgtagc
+4;scaf2-fwd;cGAAGACcctaaacctgaattacactacg
+4;scaf2-rev;cGAAGACccCATCgggtgagtggccaaaatttc
