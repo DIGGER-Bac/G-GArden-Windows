@@ -1,2 +1,0 @@
-AATTGTCTGATTCGTT    ACCActagctacgatcactagcta...atcgactagctagcatcaac    CAACcatgctacgctacgactgac...gctacgatcgactgactagc    aaaacctgaattacactacgatcgactacgtacgcagagatgaaattttggccactcac    GATGTCCCCATTTTGTGGAG
-TTAACAGACTAAGCAATGGT    gatcgatgctagtgatcgat...tagctgatcgatcgtagttgGTTG    gtacgatgcgatgctgactg...cgatgctagctgactgatcgTTTT    ggacttaatgtgatgctagctgatgcatgcgtctctactttaaaaccggtgagtgCTAC    AGGGGTAAAACACCTC
