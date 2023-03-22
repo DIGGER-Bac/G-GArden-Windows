@@ -42,7 +42,7 @@ If you are reading this, you either opened the *README.md* or clicked the **Help
 [Primer3 bindings for python](https://github.com/libnano/primer3-py), [Primer3](https://github.com/primer3-org)
 
 ## License
-This is a repository written under the [CC BY-NC 4.0 license](http://creativecommons.org/licenses/by-nc/4.0/)
+This is a repository written under the [CC BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ## References
 Potapov, Vladimir; Ong, Jennifer L.; Kucera, Rebecca B.; Langhorst, Bradley W.; Bilotti, Katharina; Pryor, John M. et al. (2018a): Comprehensive Profiling of Four Base Overhang Ligation Fidelity by T4 DNA Ligase and Application to DNA Assembly. In: ACS Synthetic Biology 7 (11), S. 2665–2674. DOI: 10.1021/acssynbio.8b00333.
