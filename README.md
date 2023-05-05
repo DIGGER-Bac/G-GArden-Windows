@@ -44,6 +44,11 @@ If you are reading this, you either opened the *README.md* or clicked the **Help
 ## License
 This is a repository written under the [CC BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
+## How to Cite:
+DIGGER-BAC is published and can be cited as following:
+
+Philipp N, Brinkmann C, Georg J, Schindler D, Berghoff BA (2023) DIGGER-Bac: prediction of seed regions for high-fidelity construction of synthetic small RNAs in bacteria. Bioinformatics. https://doi.org/10.1093/bioinformatics/btad285
+
 ## References
 Potapov, Vladimir; Ong, Jennifer L.; Kucera, Rebecca B.; Langhorst, Bradley W.; Bilotti, Katharina; Pryor, John M. et al. (2018a): Comprehensive Profiling of Four Base Overhang Ligation Fidelity by T4 DNA Ligase and Application to DNA Assembly. In: ACS Synthetic Biology 7 (11), S. 2665–2674. DOI: 10.1021/acssynbio.8b00333.
 
